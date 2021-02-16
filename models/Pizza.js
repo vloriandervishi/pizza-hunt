@@ -11,12 +11,26 @@ const PizzaSchema = new Schema({
     type: Date,
     default: Date.now
   },
+ 
   size: {
     type: String,
     default: 'Large'
   },
-  toppings: []
+  toppings: [],
+  comments: [{
+    type: String,
+ }],
+  // } 
+     toJSON: {
+         virtuals:true,
+     },
+     id: false,
+ //}
 });
+// get total count of comments and replies on retrieval
+PizzaSchema.virtual('commentCount').get(function(){
+    return this.comments.length;
+})
 
 const Pizza = model('Pizza', PizzaSchema);
 
